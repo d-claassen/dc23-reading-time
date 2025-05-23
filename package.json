@@ -20,7 +20,7 @@
 	"main": "build/index.js",
 	"devDependencies": {
 		"@wordpress/env": "^10.23.0",
-		"@wordpress/scripts": "^30.16.0"
+		"@wordpress/scripts": "^30.17.0"
 	},
 	"scripts": {
 		"build": "wp-scripts build",
