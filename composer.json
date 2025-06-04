@@ -46,19 +46,6 @@
 		],
 		"test": [
 			"@php ./vendor/bin/phpunit --process-isolation"
-		],
-		"test:start": [
-			"echo $WP_DEVELOP_DIR",
-			"cd $WP_DEVELOP_DIR && npm run env:start"
-		],
-		"test:stop": [
-			"echo $WP_DEVELOP_DIR",
-			"cd $WP_DEVELOP_DIR && npm run env:stop"
-		],
-		"test-once": [
-			"@test:start",
-			"@test",
-			"@test:stop"
 		]
 	},
 	"extra": {
