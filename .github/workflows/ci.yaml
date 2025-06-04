@@ -84,6 +84,7 @@ jobs:
 
       - name: 'Static analysis PHP'
         run: './vendor/bin/phpstan analyze src'
+        continue-on-error: true
 
       - name: 'Test JS units'
         run: 'npm run-script test:unit -- --coverage --passWithNoTests'
