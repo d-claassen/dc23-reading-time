@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: false
       matrix:
         php_version: ["8.1", "8.2"]
         wp_version: ["6.7", "6.8", "master"]
@@ -46,7 +45,6 @@ jobs:
 
       - name: 'Validate composer.json and composer.lock'
         run: 'composer validate --no-check-publish'
-        continue-on-error: true
 
       - name: 'NPM install'
         run: npm install
