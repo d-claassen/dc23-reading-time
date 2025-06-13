@@ -14,6 +14,7 @@
 		}
 	},
 	"require-dev": {
+		"composer/installers": "^2.0",
 		"yoast/yoastcs": "^3.2",
 		"phpunit/phpunit": "^10.5.45",
 		"brain/monkey": "^2.6",
