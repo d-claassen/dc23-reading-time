@@ -70,8 +70,8 @@ jobs:
       - name: 'Lint Markdown'
         run: 'npm run-script lint:md:docs'
 
-      #- name: 'Lint JS'
-      #  run: 'npm run-script lint:js'
+      - name: 'Lint JS'
+        run: 'npm run-script lint:js'
 
       - name: 'Lint CSS'
         run: 'npm run-script lint:css -- --allow-empty-input'
@@ -94,7 +94,6 @@ jobs:
 
       - name: 'Ditch dev dependencies'
         run: 'composer install --no-dev --prefer-dist --no-progress --no-suggest --optimize-autoloader'
-        if: ${{ success() }}
 
       - name: 'Zip it'
         run: 'npm run-script plugin-zip'
