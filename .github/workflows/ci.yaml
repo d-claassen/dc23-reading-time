@@ -51,7 +51,7 @@ jobs:
         run: npm install
 
       - name: 'Composer install'
-        run: 'composer update --prefer-lowest --prefer-dist --no-progress --no-suggest --optimize-autoloader'
+        run: 'composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader'
 
 # not yet ready for phpunit 10
 #      - name: 'Composer install pt 2'
