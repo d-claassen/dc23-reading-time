@@ -48,9 +48,10 @@ jobs:
       - name: 'Check engines'
         run: 'npm run-script check-engines'
 
-# Broken.
-#      - name: 'Check licenses'
-#        run: 'npm run-script check-licenses'
+      # Broken 
+      - name: 'Check licenses'
+        run: 'npm run-script check-licenses'
+        continue-on-error: true
 
       - name: 'Lint package.json'
         run: 'npm run-script lint:pkg-json'
