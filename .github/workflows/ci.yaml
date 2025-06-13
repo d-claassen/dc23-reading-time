@@ -17,19 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Quality Control'
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: false
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
-
     steps:
-      - name: Install subversion
-        run: sudo apt-get install -y subversion
-
       - name: 'Checkout'
         uses: actions/checkout@v4
 
@@ -46,7 +34,6 @@ jobs:
 
       - name: 'Validate composer.json and composer.lock'
         run: 'composer validate --no-check-publish'
-        continue-on-error: true
 
       - name: 'NPM install'
         run: npm install
