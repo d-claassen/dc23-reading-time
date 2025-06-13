@@ -44,8 +44,9 @@ jobs:
           php-version: '8.2'
           coverage: xdebug
 
-      #- name: 'Validate composer.json and composer.lock'
-      #  run: 'composer validate --no-check-publish'
+      - name: 'Validate composer.json and composer.lock'
+        run: 'composer validate --no-check-publish'
+        continue-on-error: true
 
       - name: 'NPM install'
         run: npm install
