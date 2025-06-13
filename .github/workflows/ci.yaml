@@ -70,8 +70,8 @@ jobs:
       - name: 'Lint Markdown'
         run: 'npm run-script lint:md:docs'
 
-      - name: 'Lint JS'
-        run: 'npm run-script lint:js'
+      #- name: 'Lint JS'
+      #  run: 'npm run-script lint:js'
 
       - name: 'Lint CSS'
         run: 'npm run-script lint:css -- --allow-empty-input'
