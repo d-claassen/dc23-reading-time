@@ -14,10 +14,11 @@
 		}
 	},
 	"require-dev": {
+		"composer/installers": "^2.0",
 		"yoast/yoastcs": "^3.2",
 		"phpunit/phpunit": "^10.5.45",
 		"brain/monkey": "^2.6",
-		"yoast/wordpress-seo": "^25.1",
+		"wpackagist-plugin/wordpress-seo": ">=25.0,<=25.3",
 		"antecedent/patchwork": "^2.1.28",
 		"brain/faker": "dev-master",
 		"phpstan/phpstan": "^1.12",
@@ -25,6 +26,15 @@
 		"phpstan/extension-installer": "^1.4",
 		"mockery/mockery": "^1.6.12",
 		"yoast/phpunit-polyfills": "^2.0"
+	},
+	"repositories": {
+		"wpackagist": {
+			"type": "composer",
+			"url": "https://wpackagist.org",
+			"only": [
+				"wpackagist-plugin/*"
+			]
+		}
 	},
 	"config": {
 		"allow-plugins": {
@@ -37,6 +47,13 @@
 			"php": "8.2.14"
 		}
 	},
+	"extra": {
+		"installer-paths": {
+			"vendor/wpackagist/{$name}/": [
+				"type:wordpress-plugin"
+			]
+		}
+	},
 	"scripts": {
 		"lint": [
 			"@php ./vendor/bin/parallel-lint . -e php --show-deprecated --exclude vendor --exclude .git"
@@ -46,22 +63,6 @@
 		],
 		"test": [
 			"@php ./vendor/bin/phpunit --process-isolation"
-		],
-		"test:start": [
-			"echo $WP_DEVELOP_DIR",
-			"cd $WP_DEVELOP_DIR && npm run env:start"
-		],
-		"test:stop": [
-			"echo $WP_DEVELOP_DIR",
-			"cd $WP_DEVELOP_DIR && npm run env:stop"
-		],
-		"test-once": [
-			"@test:start",
-			"@test",
-			"@test:stop"
 		]
-	},
-	"extra": {
-		"installer-disable": true
 	}
 }
