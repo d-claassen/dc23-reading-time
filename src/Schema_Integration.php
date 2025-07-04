@@ -18,7 +18,7 @@ final class Schema_Integration {
 	 * @param T                 $webpage_data The WebPage schema piece.
 	 * @param Meta_Tags_Context $context      The page context.
 	 *
-	 * @return T|(T&array{mainEntity: array{"@id": string}}) The original or enhanced WebPage piece.
+	 * @return T|(T&array{timeRequired: string}) The original or enhanced WebPage piece.
 	 */
 	public function add_reading_time_to_webpage( $webpage_data, $context ) {
 		\assert( $context instanceof Meta_Tags_Context );
