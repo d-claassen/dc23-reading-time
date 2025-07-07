@@ -3,7 +3,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
-import { __ } from '@wordpress/i18n';
+import { _n, sprintf } from '@wordpress/i18n';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -30,9 +30,18 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit() {
+    const { minutes } = useSelect( select => {
+        return {
+            minutes: select( "yoast-seo/editor" ).getEstimatedReadingTime(),
+        };
+    }, [] );
+    
 	return (
 		<p { ...useBlockProps() }>
-			{ __( 'Reading time – hello from the editor!', 'reading-time' ) }
+			{ sprintf(
+                _n( 'Estimated reading time: %n minute', 'Estimated reading time: %n minutes', minutes, 'reading-time' ),
+                minutes
+            ) }
 		</p>
 	);
 }
