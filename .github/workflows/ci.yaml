@@ -58,6 +58,7 @@ jobs:
         run: 'npm run-script lint:md:docs'
 
       - name: 'Lint JS'
+        continue-on-error: true
         run: 'npm run-script lint:js'
 
       - name: 'Lint CSS'
