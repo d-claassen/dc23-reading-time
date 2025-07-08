@@ -4,5 +4,13 @@
  */
 ?>
 <p <?php echo get_block_wrapper_attributes(); ?>>
-	<?php esc_html_e( 'Reading time – hello from a dynamic block!', 'reading-time' ); ?>
+	<?php 
+    $minutes = 11;
+    esc_html_e(
+        sprintf(
+            _n( 'Estimated reading time: %n minute', 'Estimated reading time: %n minutes', $minutes, 'reading-time' ),
+            $minutes
+        )
+    );
+    ?>
 </p>
