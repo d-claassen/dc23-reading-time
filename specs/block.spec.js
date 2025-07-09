@@ -23,7 +23,7 @@ test.describe('Reading time block', () => {
 
         await editor.insertBlock({ name: 'core/paragraph' });
         await page.keyboard.type(
-            ```
+            `
                 Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live 
 				the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large 
 				language ocean. A small river named Duden flows by their place and supplies it with the necessary
@@ -39,7 +39,7 @@ test.describe('Reading time block', () => {
 				continued her way. On her way she met a copy. The copy warned the Little Blind Text, that
 				where it came from it would have been rewritten a thousand times and everything that was left
 				from its origin would be the word "and".
-            ```
+            `
         );
 
         // Check that the block was inserted
