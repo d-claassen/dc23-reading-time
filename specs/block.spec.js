@@ -14,7 +14,7 @@ test.describe('Reading time block', () => {
 
     	// Check that the block was inserted
     	const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
-    	await expect(block).toHaveContent('Estimated reading time: 0 minutes' );
+    	await expect(block).toContain('Estimated reading time: 0 minutes' );
     });
 
     test('can be inserted and updates', async ({ editor, page }) => {
@@ -41,9 +41,10 @@ test.describe('Reading time block', () => {
 				from its origin would be the word "and".
             ```
         );
-            	// Check that the block was inserted
+
+        // Check that the block was inserted
     	const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
-    	await expect(block).toHaveContent('Estimated reading time: 3 minutes' );
+    	await expect(block).toContain('Estimated reading time: 3 minutes' );
     });
 
 
