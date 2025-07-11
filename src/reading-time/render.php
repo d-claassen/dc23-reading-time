@@ -6,9 +6,9 @@
 <p <?php echo get_block_wrapper_attributes(); ?>>
 	<?php 
     $minutes = YoastSEO()->meta->for_current_page()->estimated_reading_time_minutes;
-    esc_html_e(
+    echo esc_html(
         sprintf(
-            _n( 'Estimated reading time: %n minute', 'Estimated reading time: %n minutes', $minutes, 'reading-time' ),
+            _n( 'Estimated reading time: %d minute', 'Estimated reading time: %d minutes', $minutes, 'reading-time' ),
             $minutes
         )
     );
