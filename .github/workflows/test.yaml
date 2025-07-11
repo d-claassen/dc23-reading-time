@@ -79,6 +79,7 @@ jobs:
         run: npm run wp-env run -- --env-cwd='wp-content/plugins/dc23-reading-time' tests-wordpress composer test -- -- --coverage-text --display-errors --display-warnings
 
       - name: Run Playwright tests
+        id: tests
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         run: npm run test:e2e -- --pass-with-no-tests
