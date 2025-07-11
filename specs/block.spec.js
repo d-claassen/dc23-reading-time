@@ -20,8 +20,7 @@ test.describe('Reading time block', () => {
     });
 
     test('can be inserted and updates', async ({ editor, page }) => {
-        // Insert the reading time block
-    	await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
+        page.on( 'console', msg => console.log( msg.text() ) );
 
         await editor.insertBlock({ name: 'core/paragraph' });
         await page.keyboard.type(
@@ -43,6 +42,9 @@ test.describe('Reading time block', () => {
 				from its origin would be the word "and".
             `
         );
+        
+        // Insert the reading time block
+    	await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
 
         // Check that the block was inserted
     	const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
