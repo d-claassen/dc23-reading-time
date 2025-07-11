@@ -8,7 +8,9 @@ test.describe('Reading time block', () => {
 		await admin.createNewPost();
 	});
 
-    test('can be inserted and defaults', async ({ editor }) => {
+    test('can be inserted and defaults', async ({ editor, page }) => {
+        page.on( 'console', msg => console.log( msg.text() ) );
+
     	// Insert the reading time block
     	await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
 
