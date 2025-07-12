@@ -18,8 +18,8 @@
 declare( strict_types=1 );
 
 require_once 'vendor/autoload.php';
-
-if ( ! function_exists( 'dc23_reading_time_setup' ) ) :
+die('plugin');
+//if ( ! function_exists( 'dc23_reading_time_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -27,7 +27,10 @@ if ( ! function_exists( 'dc23_reading_time_setup' ) ) :
 	 * before the init hook.
 	 */
 	function dc23_reading_time_setup(): void {
+        die('before register');
+        register_block_type( __DIR__ . '/build/reading-time' );
+        die('after register');
 		( new \DC23\ReadingTime\Schema_Integration() )->register();
 	}
-endif;
+//endif;
 add_action( 'init', 'dc23_reading_time_setup' );
