@@ -9,7 +9,12 @@ test.describe('Reading time block', () => {
 	});
 
     test('can be inserted and defaults', async ({ editor, page }) => {
-        page.on( 'console', msg => console.log( msg.text() ) );
+        page.on( 'console', msg => {
+            test.info().annotations.push({
+                type: 'console-log',
+                description: msg.text()
+            } );
+        } );
 
     	// Insert the reading time block
     	await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
