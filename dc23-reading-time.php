@@ -28,7 +28,7 @@ require_once 'vendor/autoload.php';
 	 */
 	function dc23_reading_time_setup(): void {
         register_block_type( __DIR__ . '/build/reading-time' );
-
+        die('after register');
 		( new \DC23\ReadingTime\Schema_Integration() )->register();
 	}
 //endif;
