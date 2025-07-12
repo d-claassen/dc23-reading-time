@@ -18,7 +18,7 @@
 declare( strict_types=1 );
 
 require_once 'vendor/autoload.php';
-
+die('plugin');
 //if ( ! function_exists( 'dc23_reading_time_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
