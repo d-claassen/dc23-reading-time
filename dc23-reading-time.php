@@ -27,6 +27,8 @@ if ( ! function_exists( 'dc23_reading_time_setup' ) ) :
 	 * before the init hook.
 	 */
 	function dc23_reading_time_setup(): void {
+        register_block_type( __DIR__ . '/build/reading-time' );
+
 		( new \DC23\ReadingTime\Schema_Integration() )->register();
 	}
 endif;

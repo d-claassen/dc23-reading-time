@@ -75,11 +75,19 @@ jobs:
           npm run wp-env run -- tests-wordpress composer -- --version
           npm run wp-env run -- tests-wordpress phpunit -- --version
 
-      - name: Run PHPUnit tests
-        run: npm run wp-env run -- --env-cwd='wp-content/plugins/dc23-reading-time' tests-wordpress composer test -- -- --coverage-text --display-errors --display-warnings
-
       - name: Run Playwright tests
+        id: tests
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         run: npm run test:e2e -- --pass-with-no-tests
 
+      # Somehow this disables/moves the plugin, breaking the E2E tests.
+      - name: Run PHPUnit tests
+        run: npm run wp-env run -- --env-cwd='wp-content/plugins/dc23-reading-time' tests-wordpress composer test -- -- --coverage-text --display-errors --display-warnings
+
+      - name: 'Archive test artifacts'
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() && steps.tests.conclusion == 'failure' }}
+        with:
+          name: 'tests-wp${{ matrix.wp_version }}-php${{ matrix.php_version }}-${{ matrix.dependencies_version }}'
+          path: 'artifacts'
