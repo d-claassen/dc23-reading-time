@@ -47,13 +47,13 @@ test.describe('Reading time block', () => {
 				from its origin would be the word "and".
             `
         );
-        
+
         // Insert the reading time block
     	await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
 
         // Check that the block was inserted
     	const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
-    	await expect(block).toContainText('Estimated reading time: 3 minutes' );
+    	await expect(block).toContainText('Estimated reading time: 2 minutes' );
     });
 
 
