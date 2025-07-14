@@ -103,4 +103,4 @@ jobs:
           draft: ${{ github.event.inputs.draft }}
           tag_name: ${{ steps.git_tag.outputs.tag_name }}
           generate_release_notes: true
-          files: 'reading-time.zip'
+          files: 'dc23-reading-time.zip'
