@@ -1,6 +1,6 @@
 {
 	"name": "dc23-reading-time",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "A Gutenberg block to show the reading time of a page.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
