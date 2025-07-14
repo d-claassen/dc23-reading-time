@@ -1,5 +1,5 @@
-//import { useSelect } from '@wordpress/data';
-//import { _n, sprintf } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { _n, sprintf } from '@wordpress/i18n';
 import { useBlockProps } from '@wordpress/block-editor';
 
 /**
@@ -19,27 +19,18 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit() {
-    /*
     const { minutes } = useSelect( select => {
         return {
             minutes: select( "yoast-seo/editor" ).getEstimatedReadingTime(),
         };
     }, [] );
-    */
-    
-	return (
-		<p { ...useBlockProps() }>
-            12 minutes
-        </p>
-    );
-    /*
-	return (
-		<p { ...useBlockProps() }>
-			{ sprintf(
-                _n( 'Estimated reading time: %n minute', 'Estimated reading time: %n minutes', minutes, 'reading-time' ),
+
+    return (
+        <p { ...useBlockProps() }>
+            { sprintf(
+                _n( 'Estimated reading time: %d minute', 'Estimated reading time: %d minutes', minutes, 'reading-time' ),
                 minutes
             ) }
-		</p>
-	);
-    */
+        </p>
+    );
 }

@@ -20,8 +20,6 @@ import './style.scss';
 import Edit from './edit';
 import metadata from './block.json';
 
-console.log( { metaname: metadata.name } );
-
 /**
  * Every block starts by registering a new block type definition.
  *
