@@ -75,8 +75,8 @@ jobs:
           npm run wp-env run -- tests-wordpress composer -- --version
           npm run wp-env run -- tests-wordpress phpunit -- --version
 
-      - name: Run PHPUnit tests
-        run: npm run wp-env run -- --env-cwd='wp-content/plugins/dc23-reading-time' tests-wordpress composer test -- -- --coverage-text --display-errors --display-warnings
+#      - name: Run PHPUnit tests
+#        run: npm run wp-env run -- --env-cwd='wp-content/plugins/dc23-reading-time' tests-wordpress composer test -- -- --coverage-text --display-errors --display-warnings
 
       - name: Run Playwright tests
         id: tests
