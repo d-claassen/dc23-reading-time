@@ -3,18 +3,29 @@
  */
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
-test.describe('Reading time block', () => {
-	test.beforeEach(async ({  admin }) => {
-		await admin.createNewPost();
-	});
+const LONG_STORY = `
+    Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live 
+the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large 
+language ocean. A small river named Duden flows by their place and supplies it with the necessary
+regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
+Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic
+life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for
+the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands
+of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t
+listen. She packed her seven versalia, put her initial into the belt and made herself on the
+way. When she reached the first hills of the Italic Mountains, she had a last view back on
+the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline
+of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she
+continued her way. On her way she met a copy. The copy warned the Little Blind Text, that
+where it came from it would have been rewritten a thousand times and everything that was left
+from its origin would be the word "and".
+`;
 
-    test('can be inserted and defaults', async ({ editor, page }) => {
-        page.on( 'console', msg => {
-            test.info().annotations.push({
-                type: 'console-log',
-                description: msg.text()
-            } );
-        } );
+test.describe('Reading time block', () => {
+    test('can be inserted and defaults', async ({ admin, editor }) => {
+      await admin.createNewPost({
+        title: "Test Post",
+      });
 
     	// Insert the reading time block
     	await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
@@ -24,50 +35,53 @@ test.describe('Reading time block', () => {
     	await expect(block).toContainText('Estimated reading time: 0 minutes' );
     });
 
-    test('can be inserted and updates', async ({ editor, page }) => {
-        page.on( 'console', msg => console.log( msg.text() ) );
+    test('can be inserted and updates', async ({ admin, editor }) => {
+      await admin.createNewPost({
+        title: "Test Post",
+        content: LONG_STORY,
+      });
 
-        await editor.insertBlock({ name: 'core/paragraph' });
-        await page.keyboard.type(
-            `
-                Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live 
-				the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large 
-				language ocean. A small river named Duden flows by their place and supplies it with the necessary
-				regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
-				Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic
-				life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for
-				the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands
-				of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t
-				listen. She packed her seven versalia, put her initial into the belt and made herself on the
-				way. When she reached the first hills of the Italic Mountains, she had a last view back on
-				the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline
-				of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she
-				continued her way. On her way she met a copy. The copy warned the Little Blind Text, that
-				where it came from it would have been rewritten a thousand times and everything that was left
-				from its origin would be the word "and".
-            `
-        );
-
-        // Insert the reading time block
+      // Insert the reading time block
     	await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
 
-        // Check that the block was inserted
+      // Check that the block was inserted
     	const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
     	await expect(block).toContainText('Estimated reading time: 2 minutes' );
     });
 
+    test('it saves and displays correctly on frontend', async ({ admin, editor, page }) => {
+      await admin.createNewPost({
+        title: "Test Post",
+        content: LONG_STORY,
+      });
 
-    test.skip('it saves and displays correctly on frontend', async ({ page, editor }) => {
-    	await editor.insertBlock({ name: 'dc23-portfolio/skill' });
-    	// Add text
+      // Insert the reading time block
+      await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
+      // Wait for the reading time to be calculated.
+      const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
+      await expect(block).toContainText('Estimated reading time: 2 minutes' );
 
-    	// Save the post
-    	await editor.saveDraft();
+      // Save the post
+      await editor.publishPost();
+      await page.getByText('View Post').first().click();
 
-    	// Check the saved content structure
-    	const content = await editor.getEditedPostContent();
-    	expect(content).toContain('dc23-portfolio/skill');
-    	expect(content).toContain('PHP');
-    	expect(content).toContain('WordPress');
+      const body = await page.textContent('body');
+      expect(body).toContain('Estimated reading time: 2 minutes');
+      await expect(page.locator('body')).toContainText('Estimated reading time: 2 minutes');
+    });
+
+    test('it saves with initial reading time when skipping editor', async ({ page, requestUtils }) => {
+      const { id: postId } = await requestUtils.createPost({
+        title: 'Event Test Post',
+        content: '<!-- wp:dc23-reading-time/reading-time /-->'
+            + '<!-- wp:paragraph -->'
+            + `<p>${ LONG_STORY }</p>`
+            + '<!-- /wp:paragraph -->',
+        status: 'publish',
+      });
+
+      await page.goto(`/index.php?p=${postId}`);
+      const body = await page.textContent('body');
+      expect(body).toContain('Estimated reading time: 1 minute');
     });
 });
