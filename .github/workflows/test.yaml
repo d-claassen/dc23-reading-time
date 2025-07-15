@@ -75,8 +75,8 @@ jobs:
           npm run wp-env run -- tests-wordpress composer -- --version
           npm run wp-env run -- tests-wordpress phpunit -- --version
 
-      - name: Dissble Yoast SEO
-        eun: npm run wp-env run -- tests-cli wp plugin deactivate wordpress-seo
+      - name: Deactivate Yoast SEO
+        run: npm run wp-env run -- tests-cli wp plugin deactivate wordpress-seo
 
       - name: Run Playwright tests
         id: tests
