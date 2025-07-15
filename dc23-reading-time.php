@@ -11,6 +11,7 @@
  * Description: Add more features related to reading time in your WordPress website.
  * Requires at least: 6.2
  * Requires PHP: 8.1
+ * Requires Plugins:  wordpress-seo
  * Author: Dennis Claassen
  * Author URI: https://www.dennisclaassen.nl/
  */
