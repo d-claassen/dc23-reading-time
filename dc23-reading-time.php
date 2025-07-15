@@ -14,6 +14,9 @@
  * Requires Plugins: wordpress-seo
  * Author: Dennis Claassen
  * Author URI: https://www.dennisclaassen.nl/
+ * GitHub Plugin URI: https://github.com/d-claassen/dc23-reading-time
+ * Primary Branch: main
+ * Release Asset: true
  */
 
 declare( strict_types=1 );
