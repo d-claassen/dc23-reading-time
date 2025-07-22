@@ -101,7 +101,7 @@ test.describe('Reading time block', () => {
 
             await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
         
-            await expect(page.locator('body')).toContainText('Estimated reading time: 42 minutes');
+            await expect(editor.canvas.locator('body')).toContainText('Estimated reading time: 42 minutes');
         }
     );
 });
