@@ -20,8 +20,10 @@ import './editor.scss';
  */
 export default function Edit() {
     const { minutes } = useSelect( select => {
+        const store = select( "yoast-seo/editor" );
+
         return {
-            minutes: select( "yoast-seo/editor" ).getEstimatedReadingTime(),
+            minutes: store?.getEstimatedReadingTime() ?? 42,
         };
     }, [] );
 
