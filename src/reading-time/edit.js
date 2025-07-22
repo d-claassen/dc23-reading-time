@@ -10,6 +10,8 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 import './editor.scss';
 
+const defaultReadingTime = () => (1);
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -20,8 +22,12 @@ import './editor.scss';
  */
 export default function Edit() {
     const { minutes } = useSelect( select => {
+        const {
+            getEstimatedReadingTime = defaultReadingTime,
+        } = select( "yoast-seo/editor" );
+
         return {
-            minutes: select( "yoast-seo/editor" ).getEstimatedReadingTime(),
+            minutes: getEstimatedReadingTime(),
         };
     }, [] );
 
