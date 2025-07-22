@@ -84,4 +84,24 @@ test.describe('Reading time block', () => {
       const body = await page.textContent('body');
       expect(body).toContain('Estimated reading time: 1 minute');
     });
+    
+    test(
+        'defaults in site editor',
+        async ( { page, editor, admin, requestUtils } ) => {
+            const newPost = await requestUtils.createPost( {
+                title: 'Test Post',
+                status: 'publish',
+            } );
+            
+            await admin.visitSiteEditor( {
+                postId: newPage.id,
+                postType: 'page',
+                canvas: 'edit',
+            } );
+
+            await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
+        
+            await expect(page.locator('body')).toContainText('Estimated reading time: 42 minutes');
+        }
+    );
 });
