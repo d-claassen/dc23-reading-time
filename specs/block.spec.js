@@ -94,8 +94,8 @@ test.describe('Reading time block', () => {
             } );
             
             await admin.visitSiteEditor( {
-                postId: newPage.id,
-                postType: 'page',
+                postId: newPost.id,
+                postType: 'post',
                 canvas: 'edit',
             } );
 
