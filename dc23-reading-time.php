@@ -7,7 +7,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: DC23 Reading Time
- * Version: 0.2.3
+ * Version: 0.2.4
  * Description: Add more features related to reading time in your WordPress website.
  * Requires at least: 6.2
  * Requires PHP: 8.1
