@@ -36,7 +36,7 @@ export default function Edit({ attributes, setAttributes }) {
   const placeholder = __( 'Estimated reading time:', 'reading-time' );
   
   return (
-    <p { …useBlockProps() }>
+    <p { ...useBlockProps() }>
       <RichText
         tagName=“span”
         value={prefix}
