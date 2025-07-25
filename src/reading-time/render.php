@@ -9,17 +9,12 @@ $prefix = $attributes['prefix'] ?? '';
 
 <p <?php echo get_block_wrapper_attributes(); ?>>
 	<?php if ( ! empty( $prefix ) ) : ?>
-		<span class="reading-time-prefix"><?php echo esc_html( $prefix ); ?></span>
-		<?php echo ' '; ?>
-		<?php echo esc_html( $minutes ); ?>
-		<?php echo ' '; ?>
-		<?php echo esc_html( $minutes === 1 ? __( 'minute', 'reading-time' ) : __( 'minutes', 'reading-time' ) ); ?>
-	<?php else : ?>
+		<span class="reading-time-prefix"><?php echo esc_html( $prefix ); ?> </span>
+	<?php endif; ?>
 		<?php echo esc_html(
 			sprintf(
-				_n( 'Estimated reading time: %d minute', 'Estimated reading time: %d minutes', $minutes, 'reading-time' ),
+				_n( '%1$s minute', '%1$s minutes', $minutes, 'reading-time' ),
 				$minutes
 			)
 		); ?>
-	<?php endif; ?>
 </p>
