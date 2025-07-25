@@ -1,6 +1,6 @@
 import { useSelect } from '@wordpress/data';
-import { _n, sprintf } from '@wordpress/i18n';
-import { useBlockProps } from '@wordpress/block-editor';
+import { _n, sprintf, __ } from '@wordpress/i18n';
+import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -16,23 +16,37 @@ import './editor.scss';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
+ * @param {Object} props - Block props
+ * @param {Object} props.attributes - Block attributes
+ * @param {Function} props.setAttributes - Function to update attributes
  * @return {Element} Element to render.
  */
-export default function Edit() {
-    const { minutes } = useSelect( select => {
-        const store = select( "yoast-seo/editor" );
-
-        return {
-            minutes: store?.getEstimatedReadingTime() ?? 42,
-        };
-    }, [] );
-
-    return (
-        <p { ...useBlockProps() }>
-            { sprintf(
-                _n( 'Estimated reading time: %d minute', 'Estimated reading time: %d minutes', minutes, 'reading-time' ),
-                minutes
-            ) }
-        </p>
-    );
+export default function Edit({ attributes, setAttributes }) {
+  const { prefix } = attributes;
+  
+  const { minutes } = useSelect( select => {
+    const store = select( "yoast-seo/editor" );
+  
+     return {
+       minutes: store?.getEstimatedReadingTime() ?? 42,
+     };
+  }, [] );
+  
+  const minutesText = sprintf( _n( '%1$s minute', '%1$s minutes', minutes, 'reading-time'), minutes );
+  const placeholder = __( 'Estimated reading time:', 'reading-time' );
+  
+  return (
+    <p { ...useBlockProps() }>
+      <RichText
+        tagName="span"
+        value={ prefix }
+        onChange={ ( value ) => setAttributes( { prefix: value } ) }
+        placeholder={ placeholder }
+        allowedFormats={ [] }
+        className="reading-time-prefix"
+      />
+      { prefix && ' ' }
+      { minutesText }
+    </p>
+  );
 }
