@@ -45,7 +45,7 @@ export default function Edit({ attributes, setAttributes }) {
         allowedFormats={ [] }
         className="reading-time-prefix"
       />
-      { prefix && ’ ' }
+      { prefix && ' ' }
       { minutesText }
     </p>
   );
