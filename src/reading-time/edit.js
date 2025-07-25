@@ -33,7 +33,7 @@ export default function Edit({ attributes, setAttributes }) {
   }, [] );
   
   const minutesText = sprintf( _n( '%1$s minute', '%1$s minutes', minutes, 'reading-time'), minutes );
-  const placeholder = __(‘Estimated reading time:’, ‘reading-time’);
+  const placeholder = __( 'Estimated reading time:', 'reading-time' );
   
   return (
     <p { …useBlockProps() }>
