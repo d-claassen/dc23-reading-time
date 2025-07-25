@@ -13,7 +13,7 @@
 	"attributes": {
 		"prefix": {
 			"type": "string",
-			"default": ""
+			"default": "Estimated reading time:"
 		}
 	},
 	"textdomain": "reading-time",
