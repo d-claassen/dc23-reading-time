@@ -38,12 +38,12 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <p { ...useBlockProps() }>
       <RichText
-        tagName=“span”
-        value={prefix}
-        onChange={(value) => setAttributes({ prefix: value })}
-        placeholder={placeholder}
-        allowedFormats={[]}
-        className=“reading-time-prefix”
+        tagName="span"
+        value={ prefix }
+        onChange={ ( value ) => setAttributes( { prefix: value } ) }
+        placeholder={ placeholder }
+        allowedFormats={ [] }
+        className="reading-time-prefix"
       />
       { prefix && ’ ' }
       { minutesText }
