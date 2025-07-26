@@ -70,6 +70,31 @@ test.describe('Reading time block', () => {
       await expect(page.locator('body')).toContainText('Estimated reading time: 2 minutes');
     });
 
+    test('custom prefix', async ({ admin, editor, page }) => {
+      await admin.createNewPost({
+        title: "Test Post",
+        content: LONG_STORY,
+      });
+
+      // Insert the reading time block
+      await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
+      // Wait for the reading time to be calculated.
+      const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
+      await expect(block).toContainText('Estimated reading time: 2 minutes' );
+      // Change the prefix
+      const prefixField = block.locator('.reading-time-prefix');
+      prefixField.fill('Time to read:');
+      await expect(block).toContainText('Time to read: 2 minutes' );
+    
+      // Save the post
+      await editor.publishPost();
+      await page.getByText('View Post').first().click();
+
+      const body = await page.textContent('body');
+      expect(body).toContain('Time to read: 2 minutes');
+      await expect(page.locator('body')).toContainText('Time to read: 2 minutes');
+    });
+
     test('it saves with initial reading time when skipping editor', async ({ page, requestUtils }) => {
       const { id: postId } = await requestUtils.createPost({
         title: 'Event Test Post',
