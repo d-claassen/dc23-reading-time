@@ -18,7 +18,7 @@
 		"yoast/yoastcs": "^3.2",
 		"phpunit/phpunit": "^10.5.45",
 		"brain/monkey": "^2.6",
-		"wpackagist-plugin/wordpress-seo": ">=25.0,<=26.1",
+		"wpackagist-plugin/wordpress-seo": ">=25.0,<=26.2",
 		"antecedent/patchwork": "^2.1.28",
 		"brain/faker": "dev-master",
 		"phpstan/phpstan": "^1.12",
