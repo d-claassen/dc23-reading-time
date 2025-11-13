@@ -26,6 +26,7 @@ updates:
           - "antecedent/*"
       static-analysis:
         patterns:
+          - "nikic/php-parser"
           - "phpstan/*"
           - "szepeviktor/phpstan-wordpress"
       code-style:
