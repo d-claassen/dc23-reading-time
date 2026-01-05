@@ -80,7 +80,7 @@ const thePage = newPage || page;
       await expect(thePage.locator('body')).toContainText('Estimated reading time: 1 minute');
     });
 
-    test('custom prefix', async ({ admin, editor, page }) => {
+    test('custom prefix', async ({ admin, context, editor, page }) => {
       await admin.createNewPost({
         title: "Test Post",
         content: SHORT_STORY,
