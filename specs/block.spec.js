@@ -65,8 +65,8 @@ test.describe('Reading time block', () => {
       await editor.publishPost();
       await page.getByText('View Post').first().click();
 
-      const body = await page.textContent('body');
-      expect(body).toContain('Estimated reading time: 2 minutes');
+      // const body = await page.textContent('body');
+      // expect(body).toContain('Estimated reading time: 2 minutes');
       await expect(page.locator('body')).toContainText('Estimated reading time: 2 minutes');
     });
 
