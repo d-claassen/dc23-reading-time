@@ -98,11 +98,14 @@ const thePage = newPage || page;
     
       // Save the post
       await editor.publishPost();
+const pagePromise = context.waitForEvent('page').catch(() => null);
       await page.getByText('View Post').first().click();
+const newPage = await pagePromise;
 
-      const body = await page.textContent('body');
+const thePage = newPage || page;
+      const body = await thePage.textContent('body');
       expect(body).toContain('Time to read: 1 minute');
-      await expect(page.locator('body')).toContainText('Time to read: 1 minute');
+      await expect(thePage.locator('body')).toContainText('Time to read: 1 minute');
     });
 
     test('it saves with initial reading time when skipping editor', async ({ page, requestUtils }) => {
