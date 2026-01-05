@@ -3,6 +3,12 @@
  */
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
+const SHORT_STORY = `
+Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live 
+the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large 
+language ocean.
+`;
+
 const LONG_STORY = `
     Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live 
 the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large 
@@ -52,7 +58,7 @@ test.describe('Reading time block', () => {
     test('it saves and displays correctly on frontend', async ({ admin, editor, page }) => {
       await admin.createNewPost({
         title: "Test Post",
-        content: LONG_STORY,
+        content: SHORT_STORY,
       });
 
       // Insert the reading time block
@@ -73,7 +79,7 @@ test.describe('Reading time block', () => {
     test('custom prefix', async ({ admin, editor, page }) => {
       await admin.createNewPost({
         title: "Test Post",
-        content: LONG_STORY,
+        content: SHORT_STORY,
       });
 
       // Insert the reading time block
