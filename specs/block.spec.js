@@ -70,12 +70,14 @@ test.describe('Reading time block', () => {
       // Save the post
       await editor.publishPost();
 
-const pagePromise = context.waitForEvent('page');
+const pagePromise = context.waitForEvent('page').catch(() => null);
       await page.getByText('View Post').first().click();
 const newPage = await pagePromise;
-      const body = await newPage.textContent('body');
-      expect(body).toContain('Estimated reading time: 2 minutes');
-      await expect(newPage.locator('body')).toContainText('Estimated reading time: 1 minute');
+
+const thePage = newPage || page;
+      const body = await thePage.textContent('body');
+      expect(body).toContain('Estimated reading time: 1 minute');
+      await expect(thePage.locator('body')).toContainText('Estimated reading time: 1 minute');
     });
 
     test('custom prefix', async ({ admin, editor, page }) => {
