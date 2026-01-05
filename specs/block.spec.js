@@ -55,7 +55,7 @@ test.describe('Reading time block', () => {
     	await expect(block).toContainText('Estimated reading time: 2 minutes' );
     });
 
-    test('it saves and displays correctly on frontend', async ({ admin, editor, page }) => {
+    test('it saves and displays correctly on frontend', async ({ admin, context, editor, page }) => {
       await admin.createNewPost({
         title: "Test Post",
         content: SHORT_STORY,
@@ -69,11 +69,13 @@ test.describe('Reading time block', () => {
 
       // Save the post
       await editor.publishPost();
-      await page.getByText('View Post').first().click();
 
-      // const body = await page.textContent('body');
-      // expect(body).toContain('Estimated reading time: 2 minutes');
-      await expect(page.locator('body')).toContainText('Estimated reading time: 1 minute');
+const pagePromise = context.waitForEvent('page');
+      await page.getByText('View Post').first().click();
+const newPage = await pagePromise;
+      const body = await newPage.textContent('body');
+      expect(body).toContain('Estimated reading time: 2 minutes');
+      await expect(newPage.locator('body')).toContainText('Estimated reading time: 1 minute');
     });
 
     test('custom prefix', async ({ admin, editor, page }) => {
