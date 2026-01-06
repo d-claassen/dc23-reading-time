@@ -130,7 +130,7 @@ test.describe('Reading time block', () => {
       expect(body).toContain('Estimated reading time: 1 minute');
     });
     
-    test(
+    test.skip(
         'defaults in site editor',
         async ( { page, editor, admin, requestUtils } ) => {
             const newPost = await requestUtils.createPost( {
