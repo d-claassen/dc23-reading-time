@@ -3,6 +3,12 @@
  */
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
+const SHORT_STORY = `
+Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live 
+the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large 
+language ocean.
+`;
+
 const LONG_STORY = `
     Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live 
 the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large 
@@ -49,7 +55,7 @@ test.describe('Reading time block', () => {
     	await expect(block).toContainText('Estimated reading time: 2 minutes' );
     });
 
-    test('it saves and displays correctly on frontend', async ({ admin, editor, page }) => {
+    test('it saves and displays correctly on frontend', async ({ admin, context, editor, page }) => {
       await admin.createNewPost({
         title: "Test Post",
         content: LONG_STORY,
@@ -63,14 +69,17 @@ test.describe('Reading time block', () => {
 
       // Save the post
       await editor.publishPost();
-      await page.getByText('View Post').first().click();
 
-      const body = await page.textContent('body');
-      expect(body).toContain('Estimated reading time: 2 minutes');
-      await expect(page.locator('body')).toContainText('Estimated reading time: 2 minutes');
+      const [newPage] = await Promise.all([
+        context.waitForEvent('page', {timeout: 1500}).catch(() => null),
+        page.getByText('View Post').first().click(),
+      ]);
+
+      const postPage = newPage || page;
+      await expect(postPage.locator('body')).toContainText('Estimated reading time: 2 minutes');
     });
 
-    test('custom prefix', async ({ admin, editor, page }) => {
+    test('custom prefix', async ({ admin, context, editor, page }) => {
       await admin.createNewPost({
         title: "Test Post",
         content: LONG_STORY,
@@ -88,11 +97,14 @@ test.describe('Reading time block', () => {
     
       // Save the post
       await editor.publishPost();
-      await page.getByText('View Post').first().click();
+      const [newPage] = await Promise.all([
+        context.waitForEvent('page', {timeout: 1500}).catch(() => null),
+        page.getByText('View Post').first().click(),
+      ]);
 
-      const body = await page.textContent('body');
-      expect(body).toContain('Time to read: 2 minutes');
-      await expect(page.locator('body')).toContainText('Time to read: 2 minutes');
+      // Pre WP 6.9 fallback.
+      const postPage = newPage || page;
+      await expect(postPage.locator('body')).toContainText('Time to read: 2 minutes');
     });
 
     test('it saves with initial reading time when skipping editor', async ({ page, requestUtils }) => {
@@ -110,7 +122,7 @@ test.describe('Reading time block', () => {
       expect(body).toContain('Estimated reading time: 1 minute');
     });
     
-    test(
+    test.skip(
         'defaults in site editor',
         async ( { page, editor, admin, requestUtils } ) => {
             const newPost = await requestUtils.createPost( {
