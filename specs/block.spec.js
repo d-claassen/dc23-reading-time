@@ -70,14 +70,15 @@ test.describe('Reading time block', () => {
       // Save the post
       await editor.publishPost();
 
-const pagePromise = context.waitForEvent('page').catch(() => null);
-      await page.getByText('View Post').first().click();
-const newPage = await pagePromise;
+      const [newPage] = Promise.all([
+        context.waitForEvent('page', {timeout: 1500}).catch(() => null),
+        page.getByText('View Post').first().click(),
+      ]);
 
-const thePage = newPage || page;
-      const body = await thePage.textContent('body');
-      expect(body).toContain('Estimated reading time: 1 minute');
-      await expect(thePage.locator('body')).toContainText('Estimated reading time: 1 minute');
+      const postPage = newPage || page;
+      //const body = await postPage.textContent('body');
+      //expect(body).toContain('Estimated reading time: 1 minute');
+      await expect(postPage.locator('body')).toContainText('Estimated reading time: 1 minute');
     });
 
     test('custom prefix', async ({ admin, context, editor, page }) => {
@@ -98,14 +99,16 @@ const thePage = newPage || page;
     
       // Save the post
       await editor.publishPost();
-const pagePromise = context.waitForEvent('page').catch(() => null);
-      await page.getByText('View Post').first().click();
-const newPage = await pagePromise;
+      const [newPage] = Promose.all([
+        context.waitForEvent('page', {timeout: 1500}).catch(() => null),
+        page.getByText('View Post').first().click(),
+      ]);
 
-const thePage = newPage || page;
-      const body = await thePage.textContent('body');
-      expect(body).toContain('Time to read: 1 minute');
-      await expect(thePage.locator('body')).toContainText('Time to read: 1 minute');
+      // Pre WP 6.9 fallback.
+      const postPage = newPage || page;
+      // const body = await postPage.textContent('body');
+      // expect(body).toContain('Time to read: 1 minute');
+      await expect(postPage.locator('body')).toContainText('Time to read: 1 minute');
     });
 
     test('it saves with initial reading time when skipping editor', async ({ page, requestUtils }) => {
