@@ -70,7 +70,7 @@ test.describe('Reading time block', () => {
       // Save the post
       await editor.publishPost();
 
-      const [newPage] = Promise.all([
+      const [newPage] = await Promise.all([
         context.waitForEvent('page', {timeout: 1500}).catch(() => null),
         page.getByText('View Post').first().click(),
       ]);
@@ -99,7 +99,7 @@ test.describe('Reading time block', () => {
     
       // Save the post
       await editor.publishPost();
-      const [newPage] = Promose.all([
+      const [newPage] = await Promise.all([
         context.waitForEvent('page', {timeout: 1500}).catch(() => null),
         page.getByText('View Post').first().click(),
       ]);
