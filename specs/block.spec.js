@@ -67,10 +67,6 @@ test.describe('Reading time block', () => {
       const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
       await expect(block).toContainText('Estimated reading time: 2 minutes' );
 
-      // Due to weird css issue on LATEST master, the publish button is hidden
-      // behind the block toolbar. Save draft is visible, so click that first
-      // to switch focus.
-      await editor.saveDraft();
       // Save the post
       await editor.publishPost();
 
@@ -80,26 +76,24 @@ test.describe('Reading time block', () => {
       ]);
 
       const postPage = newPage || page;
-      //const body = await postPage.textContent('body');
-      //expect(body).toContain('Estimated reading time: 1 minute');
       await expect(postPage.locator('body')).toContainText('Estimated reading time: 2 minutes');
     });
 
     test('custom prefix', async ({ admin, context, editor, page }) => {
       await admin.createNewPost({
         title: "Test Post",
-        content: SHORT_STORY,
+        content: LONG_STORY,
       });
 
       // Insert the reading time block
       await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
       // Wait for the reading time to be calculated.
       const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
-      await expect(block).toContainText('Estimated reading time: 1 minute' );
+      await expect(block).toContainText('Estimated reading time: 2 minutes' );
       // Change the prefix
       const prefixField = block.locator('.reading-time-prefix');
       prefixField.fill('Time to read:');
-      await expect(block).toContainText('Time to read: 1 minute' );
+      await expect(block).toContainText('Time to read: 2 minutes' );
     
       // Save the post
       await editor.publishPost();
@@ -110,9 +104,7 @@ test.describe('Reading time block', () => {
 
       // Pre WP 6.9 fallback.
       const postPage = newPage || page;
-      // const body = await postPage.textContent('body');
-      // expect(body).toContain('Time to read: 1 minute');
-      await expect(postPage.locator('body')).toContainText('Time to read: 1 minute');
+      await expect(postPage.locator('body')).toContainText('Time to read: 2 minutes');
     });
 
     test('it saves with initial reading time when skipping editor', async ({ page, requestUtils }) => {
