@@ -58,14 +58,14 @@ test.describe('Reading time block', () => {
     test('it saves and displays correctly on frontend', async ({ admin, context, editor, page }) => {
       await admin.createNewPost({
         title: "Test Post",
-        content: SHORT_STORY,
+        content: LONG_STORY,
       });
 
       // Insert the reading time block
       await editor.insertBlock({ name: 'dc23-reading-time/reading-time' });
       // Wait for the reading time to be calculated.
       const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
-      await expect(block).toContainText('Estimated reading time: 1 minute' );
+      await expect(block).toContainText('Estimated reading time: 2 minutes' );
 
       // Due to weird css issue on LATEST master, the publish button is hidden
       // behind the block toolbar. Save draft is visible, so click that first
@@ -82,7 +82,7 @@ test.describe('Reading time block', () => {
       const postPage = newPage || page;
       //const body = await postPage.textContent('body');
       //expect(body).toContain('Estimated reading time: 1 minute');
-      await expect(postPage.locator('body')).toContainText('Estimated reading time: 1 minute');
+      await expect(postPage.locator('body')).toContainText('Estimated reading time: 2 minutes');
     });
 
     test('custom prefix', async ({ admin, context, editor, page }) => {
