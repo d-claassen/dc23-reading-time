@@ -67,6 +67,10 @@ test.describe('Reading time block', () => {
       const block = editor.canvas.locator('[data-type="dc23-reading-time/reading-time"]');
       await expect(block).toContainText('Estimated reading time: 1 minute' );
 
+      // Due to weird css issue on LATEST master, the publish button is hidden
+      // behind the block toolbar. Save draft is visible, so click that first
+      // to switch focus.
+      await editor.saveDraft();
       // Save the post
       await editor.publishPost();
 
