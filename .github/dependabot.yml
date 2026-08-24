@@ -38,6 +38,7 @@ updates:
           - "phpunit/*"
           - "sebastian/*"
           - "php-stubs/*"
+          - "mockery/*"
           - "brain/*"
           - "antecedent/*"
       static-analysis:
