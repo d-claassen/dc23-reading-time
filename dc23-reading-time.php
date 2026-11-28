@@ -7,7 +7,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: DC23 Reading Time
- * Version: 0.3.1
+ * Version: 0.4.0
  * Description: Add more features related to reading time in your WordPress website.
  * Requires at least: 6.2
  * Requires PHP: 8.1
@@ -21,7 +21,9 @@
 
 declare( strict_types=1 );
 
-require_once 'vendor/autoload.php';
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
 
 if ( ! function_exists( 'dc23_reading_time_setup' ) ) :
 	/**
